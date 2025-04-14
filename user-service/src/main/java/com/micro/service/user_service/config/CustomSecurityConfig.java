@@ -22,6 +22,9 @@ public class CustomSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/sendCode").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                        .requestMatchers("/api/users/admin/**").hasRole("ADMINISTRATOR")
+                        .requestMatchers("/api/users/coach/**").hasRole("COACH")
+                        .requestMatchers("/api/users/player/**").hasRole("PLAYER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) // 加这一行！
